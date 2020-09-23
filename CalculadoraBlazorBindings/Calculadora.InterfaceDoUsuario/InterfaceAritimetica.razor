@@ -1,0 +1,477 @@
+﻿<ContentView>
+    <ScrollView>
+        <StackLayout>
+            <Grid VerticalOptions="LayoutOptions.FillAndExpand">
+
+                <Layout>
+                    <RowDefinition GridUnitType="GridUnitType.Auto" />
+                    <RowDefinition GridUnitType="GridUnitType.Auto" />
+                    <RowDefinition GridUnitType="GridUnitType.Auto" />
+                    <RowDefinition GridUnitType="GridUnitType.Auto" />
+                    <RowDefinition GridUnitType="GridUnitType.Auto" />
+                    <RowDefinition GridUnitType="GridUnitType.Auto" />
+                    <RowDefinition GridUnitType="GridUnitType.Auto" />
+                    <RowDefinition GridUnitType="GridUnitType.Auto" />
+                    <RowDefinition GridUnitType="GridUnitType.Auto" />
+                    <RowDefinition GridUnitType="GridUnitType.Auto" />
+                    <ColumnDefinition GridUnitType="GridUnitType.Auto" />
+                    <ColumnDefinition GridUnitType="GridUnitType.Auto" />
+                    <ColumnDefinition GridUnitType="GridUnitType.Auto" />
+                    <ColumnDefinition GridUnitType="GridUnitType.Auto" />
+
+                </Layout>
+
+                <Contents>
+
+
+
+
+                    <GridCell Row="0" Column="0" ColumnSpan="3">
+
+                        <Label BackgroundColor="Color.LightBlue" FontSize="45" Text="@(visor1)"
+                               FontAttributes="FontAttributes.Bold"
+                               VerticalTextAlignment="TextAlignment.End" HorizontalTextAlignment="TextAlignment.End" />
+
+                    </GridCell>
+
+                    <GridCell Row="0" Column="3">
+
+                        <Label FontSize="25" BackgroundColor="Color.LightBlue" FontAttributes="FontAttributes.Bold" Text="@(operacao)"
+                               VerticalTextAlignment="TextAlignment.Center" HorizontalTextAlignment="TextAlignment.Center" />
+                    </GridCell>
+
+
+                    <GridCell Row="4" Column="0">
+                        <Button OnClick="@RaizQuadrada">√Raiz</Button>
+                    </GridCell>
+
+                    <GridCell Row="4" Column="1">
+                        <Button OnClick="@Memoria">MR</Button>
+                    </GridCell>
+
+                    <GridCell Row="4" Column="2">
+                        <Button FontSize="15" OnClick="@MemoriaMais">M+</Button>
+                    </GridCell>
+                    <GridCell Row="4" Column="3">
+                        <Button OnClick="@MemoriaMenos">M-</Button>
+                    </GridCell>
+
+                    <GridCell Row="5" Column="0">
+                        <Button OnClick="@zerar">C</Button>
+                    </GridCell>
+
+                    <GridCell Row="5" Column="1">
+                        <Button OnClick="@MaisMenos">+/-</Button>
+                    </GridCell>
+
+                    <GridCell Row="5" Column="2">
+                        <Button OnClick="@Porcento">%</Button>
+                    </GridCell>
+                    <GridCell Row="5" Column="3">
+                        <Button OnClick="@Dividir">/</Button>
+
+                    </GridCell>
+                    <GridCell Row="7" Column="0">
+                        <Button OnClick="@btnNumero7">7</Button>
+
+                    </GridCell>
+
+                    <GridCell Row="7" Column="1">
+                        <Button OnClick="@btnNumero8">8</Button>
+                    </GridCell>
+
+                    <GridCell Row="7" Column="2">
+                        <Button OnClick="@btnNumero9">9</Button>
+                    </GridCell>
+
+                    <GridCell Row="7" Column="3">
+                        <Button OnClick="@Multiplicar">*</Button>
+                    </GridCell>
+
+                    <GridCell Row="8" Column="0">
+                        <Button OnClick="@btnNumero4">4</Button>
+                    </GridCell>
+
+                    <GridCell Row="8" Column="1">
+                        <Button OnClick="@btnNumero5">5</Button>
+                    </GridCell>
+
+                    <GridCell Row="8" Column="2">
+                        <Button OnClick="@btnNumero6">6</Button>
+                    </GridCell>
+
+                    <GridCell Row="8" Column="3">
+                        <Button OnClick="@Subtrair">-</Button>
+                    </GridCell>
+
+                    <GridCell Row="9" Column="0">
+                        <Button OnClick="@btnNumero1">1</Button>
+
+                    </GridCell>
+
+                    <GridCell Row="9" Column="1">
+                        <Button OnClick="@btnNumero2">2</Button>
+
+                    </GridCell>
+
+                    <GridCell Row="9" Column="2">
+                        <Button OnClick="@btnNumero3">3</Button>
+
+                    </GridCell>
+
+                    <GridCell Row="9" Column="3">
+                        <Button OnClick="@Somar">+</Button>
+
+                    </GridCell>
+
+                    <GridCell Row="10" Column="0" ColumnSpan="2">
+                        <Button OnClick="@btnNumero0">0</Button>
+
+                    </GridCell>
+
+                    <GridCell Row="10" Column="2">
+                        <Button OnClick="@ponto">.</Button>
+
+                    </GridCell>
+
+                    <GridCell Row="10" Column="3">
+                        <Button BackgroundColor="Color.Azure" FontAttributes="FontAttributes.Bold" OnClick="@Igual">=</Button>
+
+                    </GridCell>
+
+
+                </Contents>
+
+            </Grid>
+        </StackLayout>
+    </ScrollView>
+
+</ContentView>
+
+
+
+    @code
+{
+        string tecla = "";
+        string operacao = "";
+        string valor1 = "-1";
+        string valor2 = "-1";
+        string resultado = "";
+        string visor1 = "0";
+        string memoria = "";
+        decimal calculoDaMemoria = 0;
+
+        //======================Instâncias de classe==============================================
+        Somar somar = new Somar();
+        Subitrair subitrair = new Subitrair();
+        Multiplicar multiplicar = new Multiplicar();
+        Dividir dividir = new Dividir();
+        Porcentagem porcento = new Porcentagem();
+        RaizQuadrada raizQuadrada = new RaizQuadrada();
+        MaisMenos maisMenos = new MaisMenos();
+        MemoriaMRC memoriaMRC;
+
+        //=========================================================================================
+
+
+        void Porcento()
+        {
+            if (operacao != "" && valor2 != "-1")
+            {
+                operacao = "%";
+                resultado = Convert.ToString(porcento.Calcular(Convert.ToDecimal(valor1), Convert.ToDecimal(valor2)));
+                visor1 = resultado;
+
+            }
+        }
+        void RaizQuadrada()
+        {
+            try
+            {
+                if (operacao == "" && valor2 == "-1")
+                {
+                    operacao = "√Raiz";
+                    resultado = Convert.ToString(raizQuadrada.Calcular(Convert.ToDecimal(valor1)));
+                    visor1 = resultado;
+                    return;
+                }
+                if (resultado != "")
+                {
+                    operacao = "√Raiz";
+                    valor1 = resultado;
+                    resultado = Convert.ToString(raizQuadrada.Calcular(Convert.ToDecimal(valor1)));
+                    visor1 = resultado;
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                visor1 = ex.Message.ToString();
+            }
+
+
+        }
+        void mrcPresionado()
+        {
+            memoria = memoriaMRC.mrApagar();
+        }
+
+        void Memoria()
+        {
+            if (valor1 != "-1" && memoria == "")
+            {
+                memoria = valor1;
+                return;
+            }
+            if (memoria != "" && valor1 != "-1")
+            {
+                memoria = valor1;
+                return;
+            }
+
+            if (memoria != "")
+            {
+                valor1 = memoria;
+                visor1 = memoria;
+                return;
+            }
+
+
+        }
+
+        void MemoriaMais()
+        {
+            Igual();
+            memoriaMRC = new MemoriaMRC(valor1, valor2, memoria, resultado);
+            memoria = Convert.ToString(memoriaMRC.mrMais());
+            visor1 = memoria;
+        }
+
+
+        void MemoriaMenos()
+        {
+            Igual();
+            memoriaMRC = new MemoriaMRC(valor1, valor2, memoria, resultado);
+            memoria = Convert.ToString(memoriaMRC.mrMenos());
+            visor1 = memoria;
+        }
+
+        void MaisMenos()
+        {
+            try
+            {
+                if (operacao == "" && valor2 == "-1")
+                {
+                    operacao = "+/-";
+                    resultado = Convert.ToString(maisMenos.Calcular(Convert.ToDecimal(valor1)));
+                    visor1 = resultado;
+                    return;
+                }
+
+                if (resultado != "")
+                {
+                    operacao = "+/-";
+                    valor1 = resultado;
+                    resultado = Convert.ToString(raizQuadrada.Calcular(Convert.ToDecimal(valor1)));
+                    visor1 = resultado;
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                valor1 = ex.Message.ToString();
+            }
+
+
+        }
+        void zerar()
+        {
+            tecla = "";
+            operacao = "";
+            valor1 = "-1";
+            valor2 = "-1";
+            resultado = "";
+            visor1 = "0";
+
+        }
+
+        void Somar()
+        {
+
+            operacao = "+";
+
+            if (operacao != "" && valor2 != "-1")
+            {
+                resultado = Convert.ToString(somar.Calcular(Convert.ToDecimal(valor1), Convert.ToDecimal(valor2)));
+                visor();
+            }
+
+            return;
+
+        }
+
+        void Dividir()
+        {
+            operacao = "/";
+
+            if (operacao != "" && valor2 != "-1")
+            {
+                resultado = Convert.ToString(dividir.Calcular(Convert.ToDecimal(valor1), Convert.ToDecimal(valor2)));
+                visor();
+            }
+
+
+            return;
+
+        }
+
+        void Subtrair()
+        {
+            operacao = "-";
+
+            if (operacao != "" && valor2 != "-1")
+            {
+                resultado = Convert.ToString(subitrair.Calcular(Convert.ToDecimal(valor1), Convert.ToDecimal(valor2)));
+                visor();
+            }
+        }
+
+        void Multiplicar()
+        {
+            operacao = "*";
+
+            if (operacao != "" && valor2 != "-1")
+            {
+                resultado = Convert.ToString(multiplicar.Calcular(Convert.ToDecimal(valor1), Convert.ToDecimal(valor2)));
+                visor();
+            }
+
+        }
+
+        void Igual()
+        {
+
+            if (operacao != "" && valor2 != "-1")
+            {
+
+                try
+                {
+                    switch (operacao)
+                    {
+                        case "+":
+                            resultado = Convert.ToString(somar.Calcular(Convert.ToDecimal(valor1), Convert.ToDecimal(valor2)));
+                            visor(resultado);
+                            break;
+                        case "-":
+                            resultado = Convert.ToString(subitrair.Calcular(Convert.ToDecimal(valor1), Convert.ToDecimal(valor2)));
+                            visor(resultado);
+                            break;
+                        case "*":
+                            resultado = Convert.ToString(multiplicar.Calcular(Convert.ToDecimal(valor1), Convert.ToDecimal(valor2)));
+                            visor(resultado);
+                            break;
+                        case "/":
+                            resultado = Convert.ToString(dividir.Calcular(Convert.ToDecimal(valor1), Convert.ToDecimal(valor2)));
+                            visor(resultado);
+                            break;
+                        default:
+                            //
+                            break;
+                    }
+                }
+                catch (Exception e)
+                {
+
+                    visor1 = e.Message.ToString();
+                }
+
+            }
+
+
+
+
+
+        }
+
+
+        #region Botoès Numericos
+        void ponto()
+        {
+            teclas(".");
+        }
+        void btnNumero0()
+        {
+            teclas("0");
+
+        }
+        void btnNumero1()
+        {
+            teclas("1");
+        }
+        void btnNumero2()
+        {
+            teclas("2");
+        }
+        void btnNumero3()
+        {
+            teclas("3");
+        }
+        void btnNumero4()
+        {
+            teclas("4");
+        }
+        void btnNumero5()
+        {
+            teclas("5");
+        }
+        void btnNumero6()
+        {
+            teclas("6");
+        }
+        void btnNumero7()
+        {
+            teclas("7");
+        }
+        void btnNumero8()
+        {
+            teclas("8");
+        }
+        void btnNumero9()
+        {
+            teclas("9");
+        }
+
+
+        #endregion
+
+        void teclas(string _tecla)
+        {
+            tecla = _tecla;
+            if (operacao == "")
+            {
+                visor1 = Convert.ToString(ControleDasTeclasPressionada.TeclaPressionada(valor1, operacao, tecla, valor2));
+                valor1 = Convert.ToString(visor1);
+                return;
+
+            }
+
+
+            valor2 = ControleDasTeclasPressionada.TeclaPressionada(valor1, operacao, tecla, valor2);
+            visor();
+        }
+
+
+        void visor(string resultado = "")
+        {
+            visor1 = Convert.ToString(valor1 + " " + operacao + " " + valor2 + " = " + resultado);
+        }
+
+        void visor()
+        {
+            visor1 = Convert.ToString(valor1 + " " + operacao + " " + valor2);
+        }
+
+
+
+    }
+
