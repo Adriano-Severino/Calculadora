@@ -33,5 +33,5 @@ versao do dotnet 3.1.401
 
 # Estrutura final do projeto
 <p align="left">
-  <img src="https://www.imagemhost.com.br/images/2021/05/17/Screenshot_6.th.png" width="350" alt="accessibility text">
+  <img src="https://www.imagemhost.com.br/images/2021/05/17/Screenshot_6.png" width="350" alt="accessibility text">
 </p>
